@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RegisterModel } from '../../../models/auth/register.model';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class RegisterComponent {
 
   @Output() closeMeEvent = new EventEmitter();
-  @Output() confirmEvent = new EventEmitter<any>(false);
+  @Output() confirmEvent = new EventEmitter<RegisterModel>();
 
   registerForm: FormGroup;
   passwordPattern = '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{4,}$';
@@ -35,7 +36,7 @@ export class RegisterComponent {
   confirm() {
     if (this.registerForm.valid) {
       const { firstName, lastName, email, password } = this.registerForm.value;
-      const registerData: any = { firstName, lastName, email, password }; 
+      const registerData: RegisterModel = { firstName, lastName, email, password }; 
       this.confirmEvent.emit(registerData);
     }
   }

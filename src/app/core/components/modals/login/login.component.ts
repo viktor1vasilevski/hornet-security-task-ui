@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LoginModel } from '../../../models/auth/login.model';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class LoginComponent {
 
   @Output() closeMeEvent = new EventEmitter();
-  @Output() confirmEvent = new EventEmitter<any>();
+  @Output() confirmEvent = new EventEmitter<LoginModel>();
 
   loginForm: FormGroup;
   passwordPattern = '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{4,}$';
@@ -41,7 +42,7 @@ export class LoginComponent {
   confirm() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      const loginData: any = { email, password };
+      const loginData: LoginModel = { email, password };
       this.confirmEvent.emit(loginData);
     }
   }
