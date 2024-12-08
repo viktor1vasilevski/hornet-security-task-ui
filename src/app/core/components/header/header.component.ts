@@ -10,6 +10,9 @@ import { LoginComponent } from '../modals/login/login.component';
 import { AuthenticationManagerService } from '../../services/authentication-manager/authentication-manager.service';
 import { ToastrNotificationService } from '../../services/toastr-notification.service';
 import { ErrorHandlerService } from '../../services/error-handler.service';
+import { ApiResponse } from '../../models/responses/api-response.model';
+import { TokenResponse } from '../../models/responses/token-response.model';
+import { BaseResponse } from '../../models/responses/base-response.model';
 
 @Component({
   selector: 'app-header',
@@ -62,7 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.loginSub = this._modalService.openModal(this.registerEntry, LoginComponent, null, true).subscribe((data) => {
       this.loading = true;
       this._authService.loginUser(data).subscribe({
-        next: (response: any) => {
+        next: (response: ApiResponse<TokenResponse>) => {
           if (response.success) {
             const token = response.data.token;
             this._authenticationManagerService.setSession(token);
@@ -95,7 +98,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.registerSub = this._modalService.openModal(this.registerEntry, RegisterComponent, null, true).subscribe((data) => {
       this.loading = true;
       this._authService.registerUser(data).subscribe({
-        next: (response: any) => {
+        next: (response: BaseResponse) => {
           if (response.success) {
             this._toastrNotificationService.showNotification(
               response.message,
