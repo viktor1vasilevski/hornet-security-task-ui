@@ -1,0 +1,56 @@
+<div *ngIf="loading" class="loader">
+    <div class="spinner"></div>
+</div>
+
+<div *ngIf="!loading">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">SpaceX Past Launch Data</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Webcast</th>
+                        <th>Wikipedia</th>
+                        <th>Patch Small</th>
+                        <th>Patch Large</th>
+                        <th>Reddit Launch</th>
+                        <th>Flickr Original</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of pastLaunches">
+                        <td>
+                            <a *ngIf="item.links?.webcast" [href]="item.links.webcast" class="btn btn-link"
+                                target="_blank">Watch</a>
+                            <span *ngIf="!item.links?.webcast">N/A</span>
+                        </td>
+                        <td>
+                            <a *ngIf="item.links?.wikipedia" [href]="item.links.wikipedia" class="btn btn-link"
+                                target="_blank">Read</a>
+                            <span *ngIf="!item.links?.wikipedia">N/A</span>
+                        </td>
+                        <td>
+                            <img *ngIf="item.links?.patch?.small" [src]="item.links.patch.small" class="img-thumbnail"
+                                alt="Patch Small" />
+                            <span *ngIf="!item.links?.patch?.small">N/A</span>
+                        </td>
+                        <td>
+                            <img *ngIf="item.links?.patch?.large" [src]="item.links.patch.large" class="img-thumbnail"
+                                alt="Patch Large" />
+                            <span *ngIf="!item.links?.patch?.large">N/A</span>
+                        </td>
+                        <td>{{ item.links?.reddit?.launch || 'N/A' }}</td>
+                        <td>
+                            <ul class="list-unstyled">
+                                <li *ngFor="let flickrImage of item.links?.flickr?.original">
+                                    <a [href]="flickrImage" class="btn btn-link" target="_blank">{{ flickrImage }}</a>
+                                </li>
+                            </ul>
+                            <span *ngIf="!item.links?.flickr?.original?.length">N/A</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

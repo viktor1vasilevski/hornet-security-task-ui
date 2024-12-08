@@ -1,0 +1,21 @@
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.img-thumbnail {
+  width: 50px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+h2 {
+  font-weight: bold;
+  color: #343a40;
+}
+
+

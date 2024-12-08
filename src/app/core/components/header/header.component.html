@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top navbar-bordered" *ngIf="!loading">
+    <div class="container-fluid">
+        <h1 class="navbar-brand" routerLink="">SpaceX</h1>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link active" aria-current="page" routerLink="/space-x/past-launch">Past Launches</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active" aria-current="page" routerLink="/space-x/latest-launch">Latest
+                        Launches</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active" aria-current="page" routerLink="/space-x/upcoming-launch">Upcoming
+                        Launches</a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center">
+                <button *ngIf="isLoggedIn" class="btn btn-outline-danger me-2" (click)="logout()">Logout</button>
+                <a *ngIf="!isLoggedIn" class="btn btn-outline-primary me-2" (click)="login()" role="button">Login</a>
+                <a *ngIf="!isLoggedIn" class="btn btn-primary" (click)="register()" type="submit"
+                    class="btn btn-primary" role="button">Register</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div *ngIf="loading" class="loader">
+    <div class="spinner"></div>
+</div>
+
+<div *ngIf="!loading" class="modal-container">
+    <div #loginModal></div>
+    <div #registerModal></div>
+</div>

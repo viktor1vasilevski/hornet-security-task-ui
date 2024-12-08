@@ -1,0 +1,66 @@
+<div *ngIf="loading" class="loader">
+    <div class="spinner"></div>
+</div>
+
+<div *ngIf="!loading">
+    <div *ngIf="launchData" class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="display-4">{{ launchData.name }}</h1>
+                <div class="mb-4">
+                    <p><strong>Flight Number:</strong> {{ launchData.flightNumber }}</p>
+                    <p><strong>Success:</strong> {{ launchData.success ? 'Yes' : 'No' }}</p>
+                    <p><strong>Upcoming:</strong> {{ launchData.upcoming ? 'Yes' : 'No' }}</p>
+                    <p><strong>Launch Date:</strong> {{ launchData.dateUtc | date: 'medium' }}</p>
+                </div>
+            </div>
+
+            <div class="col-md-4 text-center">
+                <h3>Patch Images</h3>
+                <div *ngIf="launchData.links.patch" class="mb-3">
+                    <img *ngIf="launchData.links.patch.small" [src]="launchData.links.patch.small" alt="Small Patch"
+                        class="img-fluid mb-2" />
+                    <img *ngIf="launchData.links.patch.large" [src]="launchData.links.patch.large" alt="Large Patch"
+                        class="img-fluid" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Links</h3>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item">
+                        <strong>Wikipedia: </strong>
+                        <a [href]="launchData.links.wikipedia" target="_blank" class="btn btn-link">Read More</a>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Webcast: </strong>
+                        <a [href]="launchData.links.webcast" target="_blank" class="btn btn-link">Watch Here</a>
+                    </li>
+                    <li *ngIf="launchData.links.reddit.launch" class="list-group-item">
+                        <strong>Launch Discussion: </strong>
+                        <a [href]="launchData.links.reddit.launch" target="_blank" class="btn btn-link">Visit Reddit</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h3>Flickr Images</h3>
+                <div *ngFor="let img of launchData.links.flickr.small" class="mb-2">
+                    <img [src]="img" alt="Flickr Image" class="img-fluid" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h3>Crew</h3>
+                <ul class="list-group">
+                    <li *ngFor="let member of launchData.crew" class="list-group-item">
+                        <strong>{{ member.role }}:</strong> {{ member.crew }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

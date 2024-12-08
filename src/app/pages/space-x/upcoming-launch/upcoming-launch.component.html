@@ -1,0 +1,81 @@
+<div *ngIf="loading" class="loader">
+    <div class="spinner"></div>
+</div>
+
+<div *ngIf="!loading">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">SpaceX Launch Data</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Flight Number</th>
+                        <th>Date (UTC)</th>
+                        <th>Success</th>
+                        <th>Upcoming</th>
+                        <th>Webcast</th>
+                        <th>Wikipedia</th>
+                        <th>Ships</th>
+                        <th>Crew</th>
+                        <th>Patch Small</th>
+                        <th>Patch Large</th>
+                        <th>Reddit Launch</th>
+                        <th>Flickr Images</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of upcomingLaunches; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ item.name || 'N/A' }}</td>
+                        <td>{{ item.flightNumber || 'N/A' }}</td>
+                        <td>{{ item.dateUtc || 'N/A' }}</td>
+                        <td>{{ item.success === null ? 'N/A' : item.success ? 'Yes' : 'No' }}</td>
+                        <td>{{ item.upcoming === null ? 'N/A' : item.upcoming ? 'Yes' : 'No' }}</td>
+                        <td>
+                            <a *ngIf="item.webcast" [href]="item.webcast" target="_blank" class="btn btn-link">Watch</a>
+                            <span *ngIf="!item.webcast">N/A</span>
+                        </td>
+                        <td>
+                            <a *ngIf="item.wikipedia" [href]="item.wikipedia" target="_blank"
+                                class="btn btn-link">Read</a>
+                            <span *ngIf="!item.wikipedia">N/A</span>
+                        </td>
+                        <td>
+                            <ul *ngIf="item.ships?.length > 0">
+                                <li *ngFor="let ship of item.ships">{{ ship }}</li>
+                            </ul>
+                            <span *ngIf="!item.ships?.length">N/A</span>
+                        </td>
+                        <td>
+                            <ul *ngIf="item.crew?.length > 0">
+                                <li *ngFor="let crew of item.crew">{{ crew }}</li>
+                            </ul>
+                            <span *ngIf="!item.crew?.length">N/A</span>
+                        </td>
+                        <td>
+                            <img *ngIf="item.links?.patch?.small" [src]="item.links.patch.small" class="img-thumbnail"
+                                alt="Patch Small" />
+                            <span *ngIf="!item.links?.patch?.small">N/A</span>
+                        </td>
+                        <td>
+                            <img *ngIf="item.links?.patch?.large" [src]="item.links.patch.large" class="img-thumbnail"
+                                alt="Patch Large" />
+                            <span *ngIf="!item.links?.patch?.large">N/A</span>
+                        </td>
+                        <td>{{ item.links?.reddit?.launch || 'N/A' }}</td>
+                        <td>
+                            <ul *ngIf="item.links?.flickr?.original?.length > 0">
+                                <li *ngFor="let image of item.links.flickr.original">
+                                    <a [href]="image" target="_blank" class="btn btn-link">View</a>
+                                </li>
+                            </ul>
+                            <span *ngIf="!item.links?.flickr?.original?.length">N/A</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
